@@ -1,0 +1,96 @@
+<template>
+<div id="strategy">
+  <el-row id="top-row">
+    <!-- The navigation column contains the conditions those provide for user to select the target stocks. -->
+    <el-col id="nav-col" :span="8">
+      <SelectDateRange v-on:setDateRange="updateDateRange"/>
+      <SelectStockPair 
+        v-model="dateRange" 
+        v-bind:dateRange="dateRange"
+        v-on:stockPairSelected="updateStockPair"/>
+    </el-col>
+
+    <!-- The data column contains the results of strategy output -->
+    <el-col id="data-col" :span="16">
+        <el-tabs v-model="tabName">
+          <el-tab-pane label="Results" name="main">
+            <DrawPair v-if="pair.length >= 2" :dateRange="dateRange" :pair="pair"/>
+          </el-tab-pane>
+
+          <el-tab-pane label="Debug" name="debug">
+            <h3>Dynamic Data</h3>
+            <ul>
+              <li v-model="dateRange">Date Range: {{ dateRange }}</li>
+              <li v-model="pair">Stock Pair: {{ pair }}</li>
+            </ul> 
+          </el-tab-pane>
+
+        </el-tabs>
+    </el-col>
+  </el-row>
+</div>
+</template>
+
+<script>
+
+import SelectDateRange from './components/SelectDateRange'
+import SelectStockPair from './components/SelectStockPair'
+import DrawPair from './components/DrawPair'
+
+
+export default {
+  name: 'stratege1',
+  components: {
+    SelectDateRange,
+    SelectStockPair,
+    DrawPair
+  },
+  data(){
+    return {
+      dateRange: [],
+      pair: [],
+      tabName: 'main',
+      chartDate: null
+    }
+  },
+  methods: {
+    updateDateRange: function(dateRange){
+      this.dateRange = dateRange
+    },
+    updateStockPair: function(pair){
+      this.pair = pair
+    }
+  }
+}
+</script>
+
+<style>
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
+</style>
+
+<!-- vim: ts=2 sw=2 expandtab

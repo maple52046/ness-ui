@@ -1,7 +1,7 @@
 <template>
-  <el-select v-model="value" placeholder="Select"
-    @pick="(value) => pickOption(value)"
-    @change="(value) => pickOption(value)">
+  <el-select v-model="value" multiple multiple-Limit=2 placeholder="Select"
+    @pick="(value) => pickOptions(value)"
+    @change="(value) => pickOptions(value)">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -15,13 +15,13 @@
   export default {
     props: ['options'],
     data() {
-      return {
-        value: ''
+      return{
+        value: []
       }
     },
     methods: {
-      pickOption: function (data){
-        this.$emit('optionPicked', data)
+      pickOptions: function(data){
+        this.$emit('optionsPicked', data)
       }
     }
   }

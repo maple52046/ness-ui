@@ -4,15 +4,15 @@ import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/zh-TW'
-import twse from './twse'
+import strategy1 from './strategy1'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI, {locale})
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#twse',
+  el: '#main',
   template: '<App/>',
-  components: { twse },
-  render: h => h(twse)
+  components: { strategy1 },
+  render: h => h(strategy1)
 })
