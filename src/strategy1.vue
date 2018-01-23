@@ -2,7 +2,7 @@
 <div id="strategy">
   <el-row id="top-row">
     <!-- The navigation column contains the conditions those provide for user to select the target stocks. -->
-    <el-col id="nav-col" :span="8">
+    <el-col id="nav-col" :span="6">
       <SelectDateRange v-on:setDateRange="updateDateRange"/>
       <SelectStockPair 
         v-model="dateRange" 
@@ -11,10 +11,15 @@
     </el-col>
 
     <!-- The data column contains the results of strategy output -->
-    <el-col id="data-col" :span="16">
+    <el-col id="data-col" :span="18">
         <el-tabs v-model="tabName">
           <el-tab-pane label="Results" name="main">
-            <DrawPair v-if="pair.length >= 2" :dateRange="dateRange" :pair="pair"/>
+            <div v-if="pair.length >= 2">
+              <el-row id="main-results-row">
+                <h3 align="center">Chart</h3>
+                <DrawPair :dateRange="dateRange" :pair="pair"/>
+              </el-row>
+            </div>
           </el-tab-pane>
 
           <el-tab-pane label="Debug" name="debug">
