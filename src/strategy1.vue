@@ -2,7 +2,7 @@
 <div id="strategy">
   <el-row id="top-row">
     <!-- The navigation column contains the conditions those provide for user to select the target stocks. -->
-    <el-col id="nav-col" :span="6">
+    <el-col id="nav-col">
       <SelectDateRange v-on:setDateRange="updateDateRange"/>
       <SelectStockPair 
         v-model="dateRange" 
@@ -11,18 +11,23 @@
     </el-col>
 
     <!-- The data column contains the results of strategy output -->
-    <el-col id="data-col" :span="18">
-        <el-tabs v-model="tabName">
-          <el-tab-pane label="Results" name="main">
+    <el-col id="data-col">
+        <h3 align="center">Results</h3>
+        <!--el-tabs v-model="tabName"-->
+          <!--el-tab-pane label="Results" name="main"-->
+            <el-alert
+              v-if="pair.length < 2"
+              title="No data to display"
+              type="info">
+            </el-alert>
             <div v-if="pair.length >= 2">
               <el-row id="main-results-row">
-                <h3 align="center">Chart</h3>
                 <DrawPair :dateRange="dateRange" :pair="pair"/>
               </el-row>
             </div>
-          </el-tab-pane>
+          <!--/el-tab-pane-->
 
-          <el-tab-pane label="Debug" name="debug">
+          <!--el-tab-pane label="Debug" name="debug">
             <h3>Dynamic Data</h3>
             <ul>
               <li v-model="dateRange">Date Range: {{ dateRange }}</li>
@@ -30,7 +35,7 @@
             </ul> 
           </el-tab-pane>
 
-        </el-tabs>
+        </el-tabs-->
     </el-col>
   </el-row>
 </div>
@@ -95,6 +100,12 @@ export default {
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
+  }
+  #nav-col {
+    width: 20%;
+  }
+  #data-col {
+    width: 80%;
   }
 </style>
 
