@@ -1,5 +1,5 @@
 <template>
-<div id="strategy">
+<div id="app">
   <el-row id="top-row">
     <!-- The navigation column contains the conditions those provide for user to select the target stocks. -->
     <el-col id="nav-col">
@@ -43,13 +43,12 @@
 
 <script>
 
-import SelectDateRange from './components/SelectDateRange'
-import SelectStockPair from './components/SelectStockPair'
-import DrawPair from './components/DrawPair'
+import SelectDateRange from './SelectDateRange'
+import SelectStockPair from './SelectStockPair'
+import DrawPair from './DrawPair'
 
 
 export default {
-  name: 'stratege1',
   components: {
     SelectDateRange,
     SelectStockPair,
