@@ -1,43 +1,36 @@
 <template>
-<div id="app">
-  <el-row id="top-row">
-    <!-- The navigation column contains the conditions those provide for user to select the target stocks. -->
-    <el-col id="nav-col">
-      <SelectDateRange v-on:setDateRange="updateDateRange"/>
-      <SelectStockPair 
-        v-model="dateRange" 
-        v-bind:dateRange="dateRange"
-        v-on:stockPairSelected="updateStockPair"/>
-    </el-col>
+<div id="app" align="left">
+  <el-collapse v-model="activeNames">
+    <!-- Condition Section -->
+    <el-collapse-item title="Condition" name="1">
+      <!-- The navigation column contains the conditions those provide for user to select the target stocks. -->
+      <div id="condition-section">
+        <div id="condition-item">
+          <SelectDateRange v-on:setDateRange="updateDateRange"/>
+        </div>
+        <div id="condition-item">
+          <SelectStockPair 
+            v-model="dateRange" 
+            v-bind:dateRange="dateRange"
+            v-on:stockPairSelected="updateStockPair"/>
+        </div>
+      </div>
+    </el-collapse-item>
 
-    <!-- The data column contains the results of strategy output -->
-    <el-col id="data-col">
-        <h3 align="center">Results</h3>
-        <!--el-tabs v-model="tabName"-->
-          <!--el-tab-pane label="Results" name="main"-->
-            <el-alert
-              v-if="pair.length < 2"
-              title="No data to display"
-              type="info">
-            </el-alert>
-            <div v-if="pair.length >= 2">
-              <el-row id="main-results-row">
-                <DrawPair :dateRange="dateRange" :pair="pair"/>
-              </el-row>
-            </div>
-          <!--/el-tab-pane-->
-
-          <!--el-tab-pane label="Debug" name="debug">
-            <h3>Dynamic Data</h3>
-            <ul>
-              <li v-model="dateRange">Date Range: {{ dateRange }}</li>
-              <li v-model="pair">Stock Pair: {{ pair }}</li>
-            </ul> 
-          </el-tab-pane>
-
-        </el-tabs-->
-    </el-col>
-  </el-row>
+    <el-collapse-item title="Results" name="2">
+       <!-- The data column contains the results of strategy output -->
+       <el-alert
+         v-if="pair.length < 2"
+         title="No data to display"
+         type="info">
+       </el-alert>
+       <div v-if="pair.length >= 2">
+         <el-row id="main-results-row">
+           <DrawPair :dateRange="dateRange" :pair="pair"/>
+         </el-row>
+       </div>
+    </el-collapse-item>
+  </el-collapse>
 </div>
 </template>
 
@@ -56,10 +49,17 @@ export default {
   },
   data(){
     return {
+      activeNames: ["1"],
       dateRange: [],
       pair: [],
       tabName: 'main',
       chartDate: null
+    }
+  },
+  watch: {
+    pair: function(){
+      if (this.pair.length > 0)
+        this.activeNames = ["2"]
     }
   },
   methods: {
@@ -105,6 +105,15 @@ export default {
   }
   #data-col {
     width: 80%;
+  }
+  #condition-section {
+    text-align: center;
+  }
+  #condition-item{
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 </style>
 

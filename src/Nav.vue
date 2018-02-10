@@ -1,7 +1,7 @@
 <template>
 <div id="nav">
   <span id="navbar">
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
       <el-menu-item index="1">
         <a href="/" id="home-link">
           <img id="logo" src="https://i.imgur.com/bNOcJJ1.png"/>
@@ -36,7 +36,7 @@
 #home {
   display: inline-block;
 }
-#home-link {
+a {
   text-decoration: none;
 }
 </style>
